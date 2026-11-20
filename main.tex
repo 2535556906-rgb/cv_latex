@@ -1,0 +1,167 @@
+\documentclass[10pt,a4paper]{article}
+
+% ---------- packages ----------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[a4paper,left=1.55cm,right=1.55cm,top=1.30cm,bottom=1.25cm]{geometry}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{microtype}
+
+% ---------- palette ----------
+\definecolor{accent}{HTML}{1F3A5F}
+\definecolor{muted}{HTML}{5B6B7C}
+\definecolor{hairline}{HTML}{C9D3DD}
+
+\hypersetup{
+  colorlinks=true,
+  urlcolor=accent,
+  linkcolor=accent,
+  pdftitle={LU Xiangsheng - Curriculum Vitae},
+  pdfauthor={LU Xiangsheng}
+}
+
+\pagestyle{empty}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0pt}
+\linespread{1.02}
+
+% ---------- helpers ----------
+\newcommand{\cvsection}[1]{%
+  \vspace{0.80em}%
+  {\color{accent}\bfseries\large\MakeUppercase{#1}}\par
+  \vspace{-0.52em}{\color{hairline}\rule{\linewidth}{0.7pt}}\par
+  \vspace{0.28em}%
+}
+
+% {title}{dates}{organisation / location}
+\newcommand{\cventry}[3]{%
+  \textbf{#1}\hfill{\small\color{muted}#2}\par
+  {\itshape #3}\par
+}
+
+\newenvironment{cvitems}{%
+  \begin{itemize}[leftmargin=1.05em,labelsep=0.50em,itemsep=0.7pt,
+                  topsep=1.0pt,parsep=0pt,partopsep=0pt]\small
+}{\end{itemize}}
+
+% ---------- document ----------
+\begin{document}
+
+% ===== header =====
+{\Huge\bfseries LU Xiangsheng}\\[1pt]
+{\large\color{accent}Embedded Software \& Motor Control Engineer}\\[6pt]
+{\small
+  +86~159~5208~8234 \;\textbullet\;
+  \href{mailto:17798903928@163.com}{17798903928@163.com} \;\textbullet\;
+  Shanghai, China \;\textbullet\;
+  \href{https://github.com/2535556906-rgb}{github.com/2535556906-rgb}%
+}\\[6pt]
+{\color{accent}\rule{\linewidth}{1.3pt}}
+
+{\small\itshape
+  Master's candidate in Electronic Information at Shanghai University's
+  Sino-European School of Technology (UTSEUS), targeting the Cyber-Physical
+  Systems master's of the UT group. Hands-on across the stack --- from PCB
+  bring-up and power-stage design to sensorless field-oriented control
+  firmware running on STM32.
+}
+
+% ===== education =====
+\cvsection{Education}
+
+\cventry{M.Eng. in Electronic Information}{Sep 2026 -- Jun 2029 (expected)}%
+  {Shanghai University, Sino-European School of Technology (UTSEUS) --- Shanghai, China}
+\begin{cvitems}
+  \item Targeting the Cyber-Physical Systems master's programme of the UT group;
+        coursework and projects centred on embedded software and real-time control.
+\end{cvitems}
+
+\cventry{B.Eng. in Communication Engineering (Innovation Class)}{Sep 2022 -- Jun 2026}%
+  {Jiangsu University of Technology --- Changzhou, China}
+\begin{cvitems}
+  \item Scholarships: 3$\times$ University First-Class (top~10\%), 2$\times$ Corporate First-Class (top~2\%).
+\end{cvitems}
+
+% ===== skills =====
+\cvsection{Technical Skills}
+{\small
+\renewcommand{\arraystretch}{1.18}%
+\begin{tabular}{@{}>{\raggedright\arraybackslash\bfseries}p{2.85cm}p{14.55cm}@{}}
+Embedded     & STM32G4 (HAL and standard peripheral library), 8051, Keil MDK, STM32CubeMX; PWM/encoder timers, ADC + DMA, UART/SPI/I2C. \\
+Motor control & PMSM field-oriented control (FOC), SVPWM, sensorless control (nonlinear flux observer + PLL), high-frequency injection for online parameter identification; Simulink modelling and host-PC debugging. \\
+Hardware     & Schematic and PCB design, soldering and board bring-up; DC-DC converters, gate drivers, three-phase inverters, current sensing; SolidWorks, 3D printing. \\
+Vision       & OpenCV --- edge/corner detection, perspective transform, line tracking, target detection and locking. \\
+\end{tabular}}
+
+% ===== projects =====
+\cvsection{Selected Projects}
+
+\cventry{Sensorless FOC Drive for Electric Vehicles}{Dec 2025 -- Jun 2026}%
+  {Bachelor's thesis --- Shanghai University}
+\begin{cvitems}
+  \item Built a sensorless surface-mounted PMSM FOC drive on STM32G431 with dual
+        current/speed loops and SVPWM, running stably without Hall sensors.
+  \item Estimated rotor flux with a nonlinear observer and extracted angle/speed
+        through a PLL; identified inductance and flux online via $\alpha$-axis
+        high-frequency injection and DFT, improving accuracy under heavy load and
+        uphill conditions.
+  \item Designed the power stage (FD6288T gate driver, three-phase bridge,
+        three-shunt sensing, multi-stage DC-DC), validated it in Simulink and
+        ported the firmware to Keil.
+\end{cvitems}
+
+\cventry{Automatic Needle-Insertion Machine for Pre-filled Syringes}{Dec 2024 -- Jun 2025}%
+  {Industry project --- Technical Lead}
+\begin{cvitems}
+  \item Developed low-level motion control for a 3-axis servo system: coordinate
+        solving, linear interpolation, acceleration/deceleration planning and
+        G-code parsing.
+  \item Led a 16-person team and owned the overall technical solution and delivery
+        schedule.
+\end{cvitems}
+
+\cventry{Self-Balancing Line-Tracking Motorcycle}{Dec 2023 -- Aug 2024}%
+  {Smart Car Competition --- Team captain}
+\begin{cvitems}
+  \item Designed a cascade PID controller (angular rate -- angle -- tracking error)
+        for static balance and high-speed cornering.
+  \item Implemented 8-neighbourhood edge scanning for track recognition; fused
+        gyroscope and accelerometer data with an EKF (drift $<0.5^{\circ}$ over 10 min).
+\end{cvitems}
+
+\cventry{Vehicle-Mounted Auto-Aiming Laser Shooting Device}{Aug 2025}%
+  {National Electronics Design Contest --- Team captain}
+\begin{cvitems}
+  \item Decoupled gimbal and chassis with cascade PID, keeping the aim stable while
+        the vehicle was moving.
+  \item Detected target corners, recovered the bullseye by inverse perspective
+        mapping and locked a laser onto the target in motion.
+\end{cvitems}
+
+\cventry{FPGA-Based Mini-LED Local-Dimming Display}{Sep 2024 -- Dec 2024}%
+  {Embedded Chip \& System Design Contest --- Captain}
+\begin{cvitems}
+  \item Implemented local dimming (RGB-to-grayscale, dynamic zone brightness) on a
+        Gowin FPGA; handled 1080p@60\,Hz LVDS input, BRAM buffering and dual
+        LCD/backlight drive.
+\end{cvitems}
+
+% ===== honors =====
+\cvsection{Honors, Awards \& Patents}
+\begin{cvitems}
+  \item \textbf{Competitions:} National First Prize (4th overall), Smart Car
+        Competition; East China First Prize (1st overall).
+  \item \textbf{Other awards:} First Prize, Jiangsu Provincial Electronics Design
+        Contest (2024 and 2025, TI Cup); National Third Prize, Embedded Chip and
+        System Design Contest; Second Prize, Jiangsu Mechanical Design Innovation
+        Competition; Third Prize, Blue Bridge Cup (Jiangsu).
+  \item \textbf{Patents \& research:} 2 granted patents (1 invention, 1 utility
+        model); led a completed provincial innovation project on 3D collaborative
+        design of smart-warehouse AGVs.
+\end{cvitems}
+
+\end{document}

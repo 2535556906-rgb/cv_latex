@@ -1,0 +1,56 @@
+name: Build CV PDF
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Compile LaTeX
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: main.tex
+
+      - name: Upload PDF artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: cv-pdf
+          path: main.pdf
+          retention-days: 30
+
+      - name: Publish PDF to release branch
+        run: |
+          set -e
+          mkdir -p /tmp/cvout
+          cp main.pdf /tmp/cvout/main.pdf
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan release
+          git rm -rf . --quiet || true
+          find . -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+          cp /tmp/cvout/main.pdf main.pdf
+          git add main.pdf
+          git commit -m "Update CV PDF"
+          git push -f origin release
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ github.run_number }}
+          name: CV v${{ github.run_number }}
+          body: Automatically built from commit ${{ github.sha }}.
+          files: main.pdf
+          draft: false
+          prerelease: false
